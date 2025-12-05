@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 420px;">
+    <h2 class="text-center mb-4">Iniciar Sesión</h2>
+
+    <form id="loginForm">
+
+        <div class="mb-3">
+            <label>Usuario</label>
+            <input id="username" class="form-control" type="text" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Contraseña</label>
+            <input id="password" class="form-control" type="password" required>
+        </div>
+
+        <button class="btn btn-warning w-100">Ingresar</button>
+    </form>
+
+    <p id="msg" class="text-danger text-center mt-3"></p>
+
+    <hr>
+
+    <p class="text-center">
+        ¿No tienes cuenta?
+        <a href="{% url 'registrar' %}">Registrarse</a>
+    </p>
+</div>
+
+<script src="/static/js/login.js"></script>
+{% endblock %}

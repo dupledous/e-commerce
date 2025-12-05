@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 450px;">
+    <h2 class="text-center mb-4">Crear Cuenta</h2>
+
+    <form id="registerForm">
+
+        <div class="mb-3">
+            <label>Usuario</label>
+            <input id="username" class="form-control" type="text" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Email</label>
+            <input id="email" class="form-control" type="email" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Contraseña</label>
+            <input id="password" class="form-control" type="password" required>
+        </div>
+
+        <button class="btn btn-primary w-100">Registrarse</button>
+    </form>
+
+    <p id="msg" class="text-danger text-center mt-3"></p>
+
+    <hr>
+
+    <p class="text-center">
+        ¿Ya tienes cuenta?
+        <a href="{% url 'login' %}">Iniciar sesión</a>
+    </p>
+
+</div>
+
+<script src="/static/js/registrar.js"></script>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Bienvenido a Mi Tienda</h1>
+        <p class="lead">Tu tienda en línea de confianza para todo lo que necesitas.</p>
+        <hr class="my-4">
+        <p>Explora nuestra amplia gama de productos y disfruta de ofertas exclusivas.</p>
+        <a class="btn btn-primary btn-lg" href="{% url 'productos' %}" role="button">Ver Productos</a>
+    </div>
+{% endblock %}

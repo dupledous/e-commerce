@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5" style="max-width: 600px;">
+    
+    <h2 class="text-center mb-4">Procesar Pago</h2>
+
+    <div id="pedido-info" class="alert alert-secondary">
+        Cargando información del pedido...
+    </div>
+
+    <div class="mt-4">
+        <label class="form-label">Método de Pago</label>
+        <select id="metodo" class="form-control">
+            <option value="tarjeta">Tarjeta de Crédito/Débito</option>
+            <option value="paypal">PayPal</option>
+            <option value="transferencia">Transferencia Bancaria</option>
+        </select>
+    </div>
+
+    <button id="btnPagar" class="btn btn-success w-100 mt-4">
+        Confirmar Pago
+    </button>
+
+    <p id="msg" class="text-danger text-center mt-3"></p>
+
+</div>
+
+<script src="/static/js/pagar.js"></script>
+
+{% endblock %}

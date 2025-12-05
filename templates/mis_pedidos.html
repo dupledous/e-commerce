@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="text-center mb-4">Mis Pedidos</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID Pedido</th>
+                <th>Total</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody id="tablaPedidos">
+            <tr><td colspan="3" class="text-center">Cargando...</td></tr>
+            <td>
+                <a href="/pagar/{{ pedido.id }}/" class="btn btn-warning btn-sm">Pagar</a>
+            </td>
+
+        </tbody>
+    </table>
+
+</div>
+
+<script src="/static/js/mis_pedidos.js"></script>
+{% endblock %}
