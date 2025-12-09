@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Usuario
+from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
 
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,4 +24,23 @@ class UsuarioSerializer(serializers.ModelSerializer):
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
-    password = serializers.CharField()
+    password = serializers.CharField(write_only=True)
+
+    def validate(self, data):
+        username = data.get("username")
+        password = data.get("password")
+
+        usuario = authenticate(username=username, password=password)
+
+        if usuario is None:
+            raise serializers.ValidationError("Credenciales incorrectas")
+
+        refresh = RefreshToken.for_user(usuario)
+
+        return {
+            "access": str(refresh.access_token),
+            "refresh": str(refresh),
+            "username": usuario.username,
+            "id": usuario.id
+        }
+

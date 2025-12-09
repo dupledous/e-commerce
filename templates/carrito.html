@@ -1,19 +1,39 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
 
-<div class="container mt-4">
-    <h2 class="text-center mb-4">Mi Carrito</h2>
+<div class="container py-5">
 
-    <div id="carrito" class="row"></div>
+    <h2 class="fw-bold text-center mb-5">
+        🛒 Mi Carrito
+    </h2>
 
-    <hr>
+    <!-- Mensajes -->
+    <div id="mensaje" class="alert d-none"></div>
 
-    <div class="text-end">
-        <h3>Total: $<span id="total">0</span></h3>
-        <a href="/pedido/" class="btn btn-success btn-lg mt-3">Crear Pedido</a>
+    <!-- Contenedor de items -->
+    <div id="carrito" class="row g-4 justify-content-center">
+        <!-- Aquí JS cargará los productos -->
     </div>
+
+    <hr class="my-4">
+
+    <!-- Total -->
+    <div class="text-end">
+        <h3 class="fw-bold">
+            Total: <span class="text-primary" id="total">$0</span>
+        </h3>
+
+        <button class="btn btn-success btn-lg mt-3 px-5"
+                onclick="crearPedido()">
+            Crear Pedido
+        </button>
+    </div>
+
 </div>
 
-<script src="/static/js/carrito.js"></script>
+<script src="{% static 'js/carrito.js' %}"></script>
 
 {% endblock %}
+

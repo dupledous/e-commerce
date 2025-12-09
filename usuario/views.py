@@ -1,10 +1,8 @@
 from rest_framework import generics
 from rest_framework.response import Response
-from django.contrib.auth import authenticate
-from rest_framework_simplejwt.tokens import RefreshToken
-
 from .serializer import UsuarioSerializer, LoginSerializer
 from .models import Usuario
+
 
 class RegisterUsuarioView(generics.CreateAPIView):
     queryset = Usuario.objects.all()
@@ -15,17 +13,13 @@ class LoginUsuarioView(generics.GenericAPIView):
     serializer_class = LoginSerializer
 
     def post(self, request):
-        username = request.data.get("username")
-        password = request.data.get("password")
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
-        usuario = authenticate(username=username, password=password)
+        # Aquí ya vienen: access, refresh, username, id
+        data = serializer.validated_data
 
-        if usuario is not None:
-            refresh = RefreshToken.for_user(usuario)
-            return Response({
-                "message": "Login correcto",
-                "access": str(refresh.access_token),
-                "refresh": str(refresh)
-            })
-
-        return Response({"error": "Credenciales incorrectas"}, status=400)
+        return Response({
+            "message": "Login correcto",
+            **data   # 🔥 devuelve access, refresh, username, id
+        })

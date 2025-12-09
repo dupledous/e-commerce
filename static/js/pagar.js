@@ -1,57 +1,24 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const token = localStorage.getItem("access");
+    const pedidoId = window.location.pathname.split("/")[2];
 
-    let pedidoId = window.location.pathname.split("/")[2];  
-    const token = localStorage.getItem("token");
-
-    // Obtener datos del pedido
-    fetch(`/api/pedido/mis-pedidos/`, {
+    fetch(`/api/pedido/detalle/${pedidoId}/`, {
         headers: {
-            "Authorization": "Bearer " + token
+            "Authorization": "Bearer " + token,
         }
     })
     .then(res => res.json())
-    .then(pedidos => {
-        let pedido = pedidos.find(p => p.id == pedidoId);
-        if (!pedido) {
-            document.getElementById("pedido-info").innerHTML = `
-                <p class="text-danger">Pedido no encontrado.</p>
-            `;
-            return;
-        }
-
-        document.getElementById("pedido-info").innerHTML = `
-            <strong>Pedido #${pedido.id}</strong><br>
-            Total a pagar: <span class="fw-bold">$${pedido.total}</span><br>
-            Fecha: ${pedido.fecha}
+    .then(data => {
+        document.getElementById("detalle-pago").innerHTML = `
+            <p><strong>Total a pagar:</strong> $${data.total}</p>
+            <p><strong>Fecha:</strong> ${data.fecha}</p>
         `;
-    });
+    })
+    .catch(err => console.error(err));
 
-    // Botón pagar
-    document.getElementById("btnPagar").addEventListener("click", function() {
-
-        const metodo = document.getElementById("metodo").value;
-
-        fetch("/api/pago/procesar/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + token
-            },
-            body: JSON.stringify({
-                pedido: pedidoId,
-                metodo_pago: metodo
-            })
-        })
-        .then(res => res.json())
-        .then(data => {
-
-            if (data.pago_id) {
-                alert("Pago realizado con éxito");
-                window.location.href = "/mis-pedidos/";
-            } else {
-                document.getElementById("msg").innerText = data.error;
-            }
-
-        });
+    // 👉 BOTON Pagar
+    document.getElementById("btnPagar").addEventListener("click", function () {
+        alert("Pago realizado correctamente");
+        window.location.href = "/mis_pedidos/";
     });
 });

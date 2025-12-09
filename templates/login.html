@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <div class="container mt-5" style="max-width: 420px;">
@@ -29,5 +30,5 @@
     </p>
 </div>
 
-<script src="/static/js/login.js"></script>
+<script src="{% static 'js/login.js' %}"></script>
 {% endblock %}

@@ -1,28 +1,25 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
 
-<div class="container mt-5">
+<div class="container py-4">
 
-    <h2 class="text-center mb-4">Mis Pedidos</h2>
+    <h2 class="fw-bold text-center mb-4">Mis Pedidos</h2>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID Pedido</th>
-                <th>Total</th>
-                <th>Fecha</th>
-            </tr>
-        </thead>
-        <tbody id="tablaPedidos">
-            <tr><td colspan="3" class="text-center">Cargando...</td></tr>
-            <td>
-                <a href="/pagar/{{ pedido.id }}/" class="btn btn-warning btn-sm">Pagar</a>
-            </td>
+    <div id="msg" class="alert d-none"></div>
 
-        </tbody>
-    </table>
+    <div id="pedidos-container" class="row gy-4">
+        <div id="lista-pedidos">
+            Cargando pedidos...
+        </div>
+        <!-- Los pedidos aparecerán aquí -->
+    </div>
 
 </div>
 
-<script src="/static/js/mis_pedidos.js"></script>
+<script src="{% static 'js/mis_pedidos.js' %}"></script>
+
 {% endblock %}
+
+

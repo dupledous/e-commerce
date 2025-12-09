@@ -1,10 +1,53 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
-    <div class="jumbotron text-center">
-        <h1 class="display-4">Bienvenido a Mi Tienda</h1>
-        <p class="lead">Tu tienda en línea de confianza para todo lo que necesitas.</p>
-        <hr class="my-4">
-        <p>Explora nuestra amplia gama de productos y disfruta de ofertas exclusivas.</p>
-        <a class="btn btn-primary btn-lg" href="{% url 'productos' %}" role="button">Ver Productos</a>
+
+<div class="hero">
+    <div class="row align-items-center">
+        <div class="col-lg-7">
+            <span class="text-warning fw-semibold">Ofertas Especiales</span>
+            <h1 class="hero-title mt-2">
+                Los Mejores Productos <br> a los Mejores Precios
+            </h1>
+            <p class="hero-subtitle mt-3">
+                Descubre nuestra selección curada de productos de alta calidad.
+                Desde tecnología hasta moda, tenemos todo lo que necesitas.
+            </p>
+
+            <div class="mt-4 hero-search position-relative">
+                <span class="search-icon">
+                    <i class="bi bi-search"></i>
+                </span>
+                <input id="searchHome" type="text" class="form-control"
+                       placeholder="Buscar productos...">
+            </div>
+
+            <div class="mt-4">
+                <a href="{% url 'productos' %}" class="btn btn-primary btn-lg me-2">
+                    Explorar Productos
+                </a>
+                <a href="{% url 'productos' %}" class="btn btn-outline-secondary btn-lg">
+                    Ver Ofertas
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-5 d-none d-lg-block">
+            <!-- Puedes reemplazar esta imagen por una tuya -->
+            <img src="https://images.pexels.com/photos/5632371/pexels-photo-5632371.jpeg"
+                 class="img-fluid rounded-4 shadow"
+                 alt="Shopping image">
+        </div>
     </div>
+</div>
+
+<hr class="my-4">
+
+<h3 class="mb-3">Productos Destacados</h3>
+<div class="row" id="destacados-home">
+    <!-- Se llena con JS (usamos mismos datos de /api/producto/) -->
+</div>
+
+<script src="{% static 'js/home.js' %}"></script>
 {% endblock %}

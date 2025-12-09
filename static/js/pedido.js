@@ -1,25 +1,26 @@
-document.getElementById("btnCrearPedido").addEventListener("click", function() {
-    
-    const token = localStorage.getItem("token");
+function crearPedido() {
+    const token = localStorage.getItem("access");
 
     if (!token) {
-        document.getElementById("msg").innerText = "Primero debes iniciar sesión";
+        mostrarMensaje("Debes iniciar sesión para crear un pedido.", "danger");
         return;
     }
 
-    fetch("/api/pedido/crear/", {
+    fetch("/api/pedido/crear/", {   //  ←  🔥 IMPORTANTE: slash final
         method: "POST",
         headers: {
-            "Authorization": "Bearer " + token
+            "Authorization": "Bearer " + token,
+            "Content-Type": "application/json"
         }
     })
     .then(res => res.json())
     .then(data => {
-        if (data.pedido_id) {
-            alert("Pedido creado correctamente");
-            window.location.href = "/mis-pedidos/";
+        if (data.error) {
+            mostrarMensaje(data.error, "danger");
         } else {
-            document.getElementById("msg").innerText = data.error;
+            alert("Pedido creado correctamente (ID: " + data.pedido_id + ")");
+            window.location.href = "/procesar/";
         }
-    });
-});
+    })
+    .catch(err => console.error("Error al crear pedido:", err));
+}

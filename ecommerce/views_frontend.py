@@ -28,6 +28,7 @@ def mis_pedidos(request):
 def pagar(request, id):
     return render(request, 'pagar.html', {"id": id})
 
+
 def categorias(request):
     return render(request, "categorias.html")
 

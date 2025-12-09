@@ -3,55 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>E-Commerce</title>
+    <title>Mi Tienda</title>
 
     <!-- BOOTSTRAP -->
-    <link 
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
         rel="stylesheet">
+
+    <!-- ESTILOS PROPIOS -->
+    <style>
+        body {
+            background-color: #f5f6fa;
+        }
+        .navbar-brand {
+            font-weight: 800;
+            letter-spacing: .5px;
+        }
+        .hero {
+            padding: 80px 0 60px 0;
+        }
+        .hero-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+        }
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: #6c757d;
+        }
+        .hero-search input {
+            border-radius: 999px;
+            padding-left: 40px;
+            border: none;
+            box-shadow: 0 0 0 1px #dee2e6;
+        }
+        .hero-search .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #adb5bd;
+        }
+        .category-pill {
+            border-radius: 999px;
+            padding: 6px 18px;
+            border: none;
+            background: #f1f3f5;
+            font-weight: 500;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        .category-pill.active {
+            background: #212529;
+            color: #fff;
+        }
+        .product-card img {
+            height: 220px;
+            object-fit: cover;
+        }
+        .badge-discount {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            border-radius: 999px;
+            padding: 4px 10px;
+            font-size: .8rem;
+        }
+    </style>
 </head>
 <body>
-    {% block nav %}
-    <header>
-        
-        <div class="bg-light">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="container">
-                    <a class="navbar-brand" href="/">Mi Tienda</a>
-                    <div>
-                        <a href="{% url 'productos' %}" class="btn btn-outline-light">Productos</a>
-                        <a href="{% url 'carrito' %}" class="btn btn-outline-light">Carrito</a>
-                        <div id="user-area">
-                            <a href="{% url 'login' %}" class="btn btn-outline-warning">Iniciar sesión</a>
-                        </div>
-                        <script>
-                        document.addEventListener("DOMContentLoaded", function() {
-                            const username = localStorage.getItem("username");
-                            if (username) {
-                                document.getElementById("user-area").innerHTML = `
-                                <span class="text-light me-3">Hola, ${username}</span>
-                                <button class="btn btn-danger btn-sm" onclick="logout()">Salir</button>`;
-                            }
-                        });
-                        function logout() {
-                            localStorage.clear();
-                            window.location.reload();
-                            }
-                            </script>
+{% block nav %}
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="/">MiTienda</a>
 
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                    </div>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'productos' %}">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'carrito' %}">Carrito</a>
+                    </li>
+                </ul>
+
+                <div id="user-area" class="d-flex align-items-center">
+                    <a href="{% url 'login' %}" class="btn btn-outline-warning btn-sm">
+                        Iniciar sesión
+                    </a>
                 </div>
-            </nav>
+            </div>
         </div>
-    </header>
+    </nav>
+
+    <script>
+    // Mostrar usuario logueado en navbar
+    document.addEventListener("DOMContentLoaded", function () {
+        const username = localStorage.getItem("username");
+        const userArea = document.getElementById("user-area");
+
+        if (username && userArea) {
+            userArea.innerHTML = `
+                <span class="text-light me-3">Hola, ${username}</span>
+                <button class="btn btn-danger btn-sm" onclick="logout()">Salir</button>
+            `;
+        }
+    });
+
+    function logout() {
+        localStorage.clear();
+        window.location.href = "/";
+    }
+    </script>
+</header>
 {% endblock %}
+
 <div class="container mt-4">
-    <!-- CONTENIDO -->
-    {% block content %}
-    
-    {% endblock %}
+    {% block content %}{% endblock %}
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

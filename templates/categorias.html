@@ -1,14 +1,22 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
 
-<div class="container mt-4">
+<div class="container py-5">
 
-    <h2 class="text-center mb-4">Categorías</h2>
+    <h2 class="fw-bold text-center mb-4">Categorías</h2>
 
-    <div id="categorias" class="row"></div>
+    <p class="text-center text-muted mb-5">
+        Explora nuestras categorías principales para encontrar lo que buscas.
+    </p>
+
+    <div class="row g-4" id="categorias-container">
+        <!-- JS cargará las categorías aquí -->
+    </div>
 
 </div>
 
-<script src="/static/js/categorias.js"></script>
+<script src="{% static 'js/categorias.js' %}"></script>
 
 {% endblock %}
