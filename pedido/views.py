@@ -46,13 +46,16 @@ class CrearPedidoView(APIView):
             iva=iva,
             total=total
         )
-
         for item in items:
+            # Calculamos el subtotal de esta línea específica
+            subtotal_linea = item.producto.precio * item.cantidad
+
             PedidoItem.objects.create(
                 pedido=pedido,
                 producto=item.producto,
                 cantidad=item.cantidad,
-                precio=item.producto.precio
+                precio=item.producto.precio,  # Ahora el modelo ya tiene este campo
+                subtotal=subtotal_linea       # Esto soluciona el error "NOT NULL constraint failed"
             )
 
             # 🔽 DESCONTAR STOCK
