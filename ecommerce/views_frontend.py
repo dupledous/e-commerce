@@ -35,5 +35,9 @@ def categorias(request):
 def productos_por_categoria(request, id):
     return render(request, "productos_por_categoria.html", {"id": id})
 
+def recibo(request, id):
+    return render(request, "recibo.html", {"id": id})
+
+
 
 

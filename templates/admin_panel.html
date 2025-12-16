@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Panel de Administración</h2>
+
+    <button class="btn btn-success mb-3" onclick="mostrarFormulario()">
+        + Nuevo Producto
+    </button>
+
+    <div id="form-producto" class="card p-3 mb-4 d-none">
+        <input id="nombre" class="form-control mb-2" placeholder="Nombre">
+        <input id="precio" type="number" class="form-control mb-2" placeholder="Precio">
+        <input id="stock" type="number" class="form-control mb-2" placeholder="Stock">
+        <textarea id="descripcion" class="form-control mb-2" placeholder="Descripción"></textarea>
+        <label class="form-label">Imagen</label>
+        <input id="imagen" type="file" class="form-control mb-3" accept="image/*">
+        <button class="btn btn-primary" onclick="crearProducto()">Guardar</button>
+    </div>
+
+
+    <div id="lista-productos" class="row"></div>
+</div>
+
+<script src="{% static 'js/admin_panel.js' %}"></script>
+{% endblock %}

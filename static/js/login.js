@@ -26,10 +26,13 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         }
 
         // 🟢 GUARDAR TOKENS CORRECTAMENTE
+        // 🟢 GUARDAR TOKENS Y ROL
         localStorage.setItem("access", data.access);
         localStorage.setItem("refresh", data.refresh);
         localStorage.setItem("username", data.username);
         localStorage.setItem("id", data.id);
+        localStorage.setItem("is_admin", data.is_admin ? "true" : "false"); // 👈 ESTA ES LA CLAVE
+
 
         console.log("TOKEN GUARDADO:", localStorage.getItem("access"));
 

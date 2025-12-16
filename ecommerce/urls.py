@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views_frontend import index, productos, producto, carrito, pedido, login, registro, mis_pedidos, pagar,categorias, productos_por_categoria
+from .views_frontend import index, productos, producto, carrito, pedido, login,registro,mis_pedidos,pagar,categorias,productos_por_categoria,recibo
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
@@ -18,7 +18,7 @@ urlpatterns = [
     path('pagar/<int:id>/', pagar, name='pagar'),
     path('categorias/', categorias, name='categorias'),
     path('productos_por_categoria/<int:id>/', productos_por_categoria, name='productos_por_categoria'),
-
+    path('recibo/',recibo,name = 'recibo'),
 
 
     # APIs

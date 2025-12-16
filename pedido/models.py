@@ -11,13 +11,16 @@ class Pedido(models.Model):
         ('entregado', 'Entregado'),
         ('cancelado', 'Cancelado'),
     )
+
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    direccion = models.CharField(max_length=255)
+    ciudad = models.CharField(max_length=100)
+    comuna = models.CharField(max_length=100)
+    total = models.DecimalField(max_digits=10, decimal_places=2)
     fecha = models.DateTimeField(auto_now_add=True)
-    estado = models.CharField(max_length=20, choices=ESTADOS, default='pendiente')
-    total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
     def __str__(self):
-        return f"Pedido {self.id} - {self.usuario.username}"
+        return f"Pedido #{self.id} - {self.usuario.username}"
     
 class PedidoItem(models.Model):
     pedido = models.ForeignKey(Pedido, related_name='items', on_delete=models.CASCADE)
@@ -27,3 +30,6 @@ class PedidoItem(models.Model):
 
     def __str__(self):
         return f"{self.producto.nombre} {self.cantidad}"
+    
+
+

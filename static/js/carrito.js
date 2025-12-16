@@ -143,21 +143,41 @@ function crearPedido() {
         return;
     }
 
+    // 🔹 OBTENER DATOS DEL FORMULARIO
+    const direccion = document.getElementById("direccion").value.trim();
+    const ciudad = document.getElementById("ciudad").value.trim();
+    const comuna = document.getElementById("comuna").value.trim();
+
+    // 🔹 VALIDACIÓN FRONTEND
+    if (!direccion || !ciudad || !comuna) {
+        mostrarMensaje("Debes completar la dirección de envío.", "danger");
+        return;
+    }
+
+    // 🔹 POST CORRECTO
     fetch("/api/pedido/crear/", {
         method: "POST",
         headers: {
             "Authorization": "Bearer " + token,
             "Content-Type": "application/json"
-        }
+        },
+        body: JSON.stringify({
+            direccion: direccion,
+            ciudad: ciudad,
+            comuna: comuna
+        })
     })
     .then(res => res.json())
     .then(data => {
         if (data.error) {
             mostrarMensaje(data.error, "danger");
         } else {
-            // 🔥 REDIRIGE A PAGAR
+            // 🔥 REDIRECCIÓN CORRECTA A PAGO
             window.location.href = "/pagar/" + data.pedido_id + "/";
         }
     })
-    .catch(err => console.error("Error al crear pedido:", err));
+    .catch(err => {
+        console.error("Error al crear pedido:", err);
+        mostrarMensaje("Error al crear el pedido.", "danger");
+    });
 }

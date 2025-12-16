@@ -1,26 +1,26 @@
 function crearPedido() {
     const token = localStorage.getItem("access");
+    const direccion = document.getElementById("direccion").value;
 
-    if (!token) {
-        mostrarMensaje("Debes iniciar sesión para crear un pedido.", "danger");
+    if (!direccion) {
+        alert("Debes ingresar dirección");
         return;
     }
 
-    fetch("/api/pedido/crear/", {   //  ←  🔥 IMPORTANTE: slash final
+    fetch("/api/pedido/crear/", {
         method: "POST",
         headers: {
-            "Authorization": "Bearer " + token,
-            "Content-Type": "application/json"
-        }
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({ direccion })
     })
     .then(res => res.json())
     .then(data => {
         if (data.error) {
-            mostrarMensaje(data.error, "danger");
+            document.getElementById("msg").innerText = data.error;
         } else {
-            alert("Pedido creado correctamente (ID: " + data.pedido_id + ")");
-            window.location.href = "/procesar/";
+            window.location.href = `/recibo/${data.pedido_id}/`;
         }
-    })
-    .catch(err => console.error("Error al crear pedido:", err));
+    });
 }

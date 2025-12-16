@@ -25,13 +25,37 @@
             Total: <span class="text-primary" id="total">$0</span>
         </h3>
 
-        <button class="btn btn-success btn-lg mt-3 px-5"
-                onclick="crearPedido()">
-            Crear Pedido
-        </button>
+    
+    </div>
+<h4 class="mt-4">📦 Dirección de envío</h4>
+
+<div class="row">
+    <div class="col-md-6 mb-2">
+        <input type="text" id="direccion" class="form-control"
+        placeholder="Dirección (calle y número)">
     </div>
 
+    <div class="col-md-3 mb-2">
+        <input type="text" id="ciudad" class="form-control"
+        placeholder="Ciudad">
+    </div>
+
+    <div class="col-md-3 mb-2">
+        <input type="text" id="comuna" class="form-control"
+        placeholder="Comuna">
+    </div>
+    <button class="btn btn-success mt-3"
+        onclick="crearPedido()">
+    Confirmar Pedido
+</button>
 </div>
+
+
+
+</div>
+
+
+
 
 <script src="{% static 'js/carrito.js' %}"></script>
 

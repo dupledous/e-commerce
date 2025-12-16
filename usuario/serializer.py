@@ -6,20 +6,24 @@ from rest_framework_simplejwt.tokens import RefreshToken
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ['id', 'username', 'email', 'password', 'telefono', 'direccion']
+        fields = ['id', 'username', 'email', 'password', 'telefono', 'direccion', 'role']
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
         usuario = Usuario(
             username=validated_data['username'],
             email=validated_data['email'],
-            password=validated_data['password'],
             telefono=validated_data.get('telefono', ''),
-            direccion=validated_data.get('direccion', '')
+            direccion=validated_data.get('direccion', ''),
+            role=validated_data.get('role', 'cliente')  # por defecto cliente
         )
         usuario.set_password(validated_data['password'])
         usuario.save()
         return usuario
+
+
+
+
 
 
 class LoginSerializer(serializers.Serializer):
@@ -41,6 +45,7 @@ class LoginSerializer(serializers.Serializer):
             "access": str(refresh.access_token),
             "refresh": str(refresh),
             "username": usuario.username,
-            "id": usuario.id
+            "id": usuario.id,
+            "is_admin": usuario.is_staff or usuario.is_superuser
         }
 

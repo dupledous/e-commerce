@@ -1,0 +1,30 @@
+<h2>Gracias por tu compra</h2>
+
+<p><strong>Pedido #{{ pedido.id }}</strong></p>
+<p><strong>Dirección:</strong> {{ pedido.direccion }}</p>
+
+<table border="1" cellpadding="8" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.producto.nombre }}</td>
+            <td>${{ item.precio }}</td>
+            <td>{{ item.cantidad }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<p>Subtotal: ${{ pedido.subtotal }}</p>
+<p>IVA (19%): ${{ pedido.iva }}</p>
+
+<h3>Total: ${{ pedido.total }}</h3>
+
+<p>Gracias por comprar en Mi Tienda.</p>
